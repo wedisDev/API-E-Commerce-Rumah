@@ -77,7 +77,27 @@ CREATE TABLE `kelurahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
-
+INSERT INTO `kelurahan` (`ID_KELURAHAN`, `ID_KECAMATAN`, `NAMA_KELURAHAN`) VALUES
+(1, 1, 'Ampel'),
+(2, 1, 'Sidotopo'),
+(3, 2, 'Gubeng'),
+(4, 2, 'Airlangga'),
+(5, 3, 'Dinoyo'),
+(6, 3, 'Merjosari'),
+(7, 4, 'Sukun'),
+(8, 4, 'Tanjung Rejo'),
+(9, 5, 'Gunungsari'),
+(10, 5, 'Bumiaji'),
+(11, 6, 'Sisir'),
+(12, 6, 'Temas'),
+(13, 7, 'Cinere'),
+(14, 7, 'Gandul'),
+(15, 8, 'Kedaung'),
+(16, 8, 'Cinangka'),
+(17, 9, 'Menteng'),
+(18, 9, 'Curug'),
+(19, 10, 'Tanah Baru'),
+(20, 10, 'Ciparigi');
 --
 -- Table structure for table `kota`
 --
@@ -195,6 +215,7 @@ INSERT INTO `pengguna` (`ID_PENGGUNA`, `ID_NOTIFIKASI`, `ROLE_PENGGUNA`, `NAMA_P
 
 CREATE TABLE `penjualan` (
   `ID_PENJUALAN` int(11) NOT NULL,
+  `ID_RUMAH` int(11) NOT NULL,
   `ID_PENGGUNA` int(11) DEFAULT NULL,
   `TANGGAL_PENJUALAN` date NOT NULL,
   `STATUS_PENJUALAN` varchar(50) NOT NULL
@@ -247,7 +268,6 @@ INSERT INTO `role` (`ID_ROLE`, `NAMA_ROLE`) VALUES
 
 CREATE TABLE `rumah` (
   `ID_RUMAH` int(11) NOT NULL,
-  `ID_PENJUALAN` int(11) NOT NULL,
   `ID_KELURAHAN` int(11) NOT NULL,
   `ID_PENGGUNA` int(11) DEFAULT NULL,
   `JUDUL_RUMAH` varchar(125) NOT NULL,
@@ -328,6 +348,7 @@ ALTER TABLE `pengguna`
 --
 ALTER TABLE `penjualan`
   ADD PRIMARY KEY (`ID_PENJUALAN`),
+  ADD KEY `FK_PENJUALA_RELATION__RUMAH` (`ID_RUMAH`),
   ADD KEY `FK_PENJUALA_DILAKUKAN_PENGGUNA` (`ID_PENGGUNA`);
 
 --
@@ -347,7 +368,6 @@ ALTER TABLE `role`
 --
 ALTER TABLE `rumah`
   ADD PRIMARY KEY (`ID_RUMAH`),
-  ADD KEY `FK_RUMAH_RELATION__PENJUALA` (`ID_PENJUALAN`),
   ADD KEY `FK_RUMAH_MENDATA_KELURAHA` (`ID_KELURAHAN`),
   ADD KEY `FK_RUMAH_MENAWARKA_PENGGUNA` (`ID_PENGGUNA`);
 
@@ -371,7 +391,7 @@ ALTER TABLE `kecamatan`
 -- AUTO_INCREMENT for table `kelurahan`
 --
 ALTER TABLE `kelurahan`
-  MODIFY `ID_KELURAHAN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_KELURAHAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `kota`
@@ -481,6 +501,7 @@ ALTER TABLE `pengguna`
 --
 ALTER TABLE `penjualan`
   ADD CONSTRAINT `FK_PENJUALA_DILAKUKAN_PENGGUNA` FOREIGN KEY (`ID_PENGGUNA`) REFERENCES `pengguna` (`ID_PENGGUNA`);
+  ADD CONSTRAINT `FK_RUMAH_RELATION__RUMAH` FOREIGN KEY (`ID_RUMAH`) REFERENCES `rumah` (`ID_rumah`);
 
 --
 -- Constraints for table `rumah`
@@ -488,7 +509,7 @@ ALTER TABLE `penjualan`
 ALTER TABLE `rumah`
   ADD CONSTRAINT `FK_RUMAH_MENAWARKA_PENGGUNA` FOREIGN KEY (`ID_PENGGUNA`) REFERENCES `pengguna` (`ID_PENGGUNA`),
   ADD CONSTRAINT `FK_RUMAH_MENDATA_KELURAHA` FOREIGN KEY (`ID_KELURAHAN`) REFERENCES `kelurahan` (`ID_KELURAHAN`),
-  ADD CONSTRAINT `FK_RUMAH_RELATION__PENJUALA` FOREIGN KEY (`ID_PENJUALAN`) REFERENCES `penjualan` (`ID_PENJUALAN`);
+  
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
