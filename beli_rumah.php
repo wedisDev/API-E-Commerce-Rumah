@@ -49,12 +49,12 @@ if(isset($_POST['ID_PENGGUNA']) && isset($_POST['ID_RUMAH'])){
           $mail->isSMTP();
           $mail->Host = 'smtp.gmail.com';
           $mail->SMTPAuth = true;
-          $mail->Username = 'bayu404.dart@gmail.com'; 
-          $mail->Password = 'ifzjftuwypocfail'; 
+          $mail->Username = 'email'; 
+          $mail->Password = 'password'; 
           $mail->SMTPSecure = 'ssl';
           $mail->Port = 465;
 
-          $mail->setFrom('bayu404.dart@gmail.com'); // Your gmail
+          $mail->setFrom('email'); // Your gmail
 
           $mail->addAddress($to);
 
@@ -92,11 +92,4 @@ else{
 //ECHO DATA IN JSON FORMAT
 echo  json_encode($msg);
 ?>
-
-
- SELECT a.NAMA_KELURAHAN, 
-    b.NAMA_PENGGUNA as penjual,b.ID_PENGGUNA as penjual_id, rumah.id, rumah.judul_rumah, rumah.alamat_rumah, rumah.desc_rumah,rumah.harga_rumah,rumah.gambar, penjualan.STATUS_PENJUALAN as status,penjualan.BUKTI_TRANSFER as transfer, b.EMAIL_PENGGUNA as email_penjual, rumah.tgl as tgl
-    FROM rumah
-    LEFT JOIN kelurahan a ON kelurahan.ID_KELURAHAN = rumah.id_kelurahan
-    LEFT JOIN pengguna b ON pengguna.ID_PENGGUNA = rumah.id_pengguna
 
