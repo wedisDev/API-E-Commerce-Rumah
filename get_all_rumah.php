@@ -12,9 +12,9 @@ require 'connect_pdo.php';
 $db_connection = new Database();
 $conn = $db_connection->dbConnection();
 
-if(isset($_POST['pengguna_id'])){
+if(isset($_POST['q'])){
     
-    $pengguna_id = $_POST['pengguna_id'];
+    $q = $_POST['q'];
 
     // MAKE SQL QUERY
     // IF GET POSTS ID, THEN SHOW POSTS BY ID OTHERWISE SHOW ALL POSTS
@@ -23,8 +23,8 @@ if(isset($_POST['pengguna_id'])){
     FROM rumah
     LEFT JOIN kelurahan ON kelurahan.ID_KELURAHAN = rumah.id_kelurahan
     LEFT JOIN pengguna ON pengguna.ID_PENGGUNA = rumah.id_pengguna
-    RIGHT JOIN penjualan ON penjualan.ID_RUMAH = rumah.id
-    WHERE penjualan.ID_PENGGUNA = '$pengguna_id'"; 
+    LEFT JOIN penjualan ON penjualan.ID_RUMAH = rumah.id
+    where rumah.judul_rumah LIKE '%$q%' "; 
 
     $stmt = $conn->prepare($query);
 
@@ -65,7 +65,5 @@ if(isset($_POST['pengguna_id'])){
         //IF THER IS NO POST IN OUR DATABASE
         echo json_encode(['message'=>'No post found']);
     }
-}else{
-
 }
 ?>
