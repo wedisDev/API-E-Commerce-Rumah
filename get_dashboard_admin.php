@@ -15,7 +15,7 @@ $conn = $db_connection->dbConnection();
     // MAKE SQL QUERY
     // IF GET POSTS ID, THEN SHOW POSTS BY ID OTHERWISE SHOW ALL POSTS
     $query = "SELECT a.NAMA_KELURAHAN, 
-    b.NAMA_PENGGUNA as penjual,b.ID_PENGGUNA as penjual_id, rumah.id, rumah.judul_rumah, rumah.alamat_rumah, rumah.desc_rumah,rumah.harga_rumah,rumah.gambar, c.STATUS_PENJUALAN as status,c.BUKTI_TRANSFER as transfer, b.EMAIL_PENGGUNA as email_penjual, rumah.tgl as tgl, d.NAMA_PENGGUNA as nama_pembeli, d.ID_PENGGUNA as id_pembeli 
+    b.NAMA_PENGGUNA as penjual,b.ID_PENGGUNA as penjual_id,rumah.tgl as tgl, rumah.id, rumah.judul_rumah, rumah.alamat_rumah, rumah.desc_rumah,rumah.harga_rumah,rumah.gambar, c.STATUS_PENJUALAN as status,c.BUKTI_TRANSFER as transfer, b.EMAIL_PENGGUNA as email_penjual, rumah.tgl as tgl, d.NAMA_PENGGUNA as nama_pembeli, d.ID_PENGGUNA as id_pembeli 
     FROM rumah
     LEFT JOIN kelurahan a ON a.ID_KELURAHAN = rumah.id_kelurahan
     LEFT JOIN pengguna b ON b.ID_PENGGUNA = rumah.id_pengguna
@@ -47,7 +47,8 @@ $conn = $db_connection->dbConnection();
                 'transfer' => $row['transfer'],
                 'id_pembeli' =>$row['id_pembeli'],
                 'pembeli' =>$row['nama_pembeli'],
-                'status' =>$row['status']
+                'status' =>$row['status'],
+                'tgl' => $row['tgl'] == null ? "null" : $row['tgl'],
 
             ];
             // PUSH POST DATA IN OUR $posts_array ARRAY

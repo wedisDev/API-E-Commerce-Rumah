@@ -39,26 +39,26 @@ if(isset($_POST['ID_PENGGUNA']) && isset($_POST['ID_RUMAH'])){
         }else{
           //source send mail (https://www.youtube.com/watch?v=9tD8lA9foxw)    
           $to = $_POST['EMAIL_PENJUAL'];
-          $mail = new PHPMailer(true);
+        //   $mail = new PHPMailer(true);
 
-          $mail->isSMTP();
-          $mail->Host = 'smtp.gmail.com';
-          $mail->SMTPAuth = true;
-          $mail->Username = 'email'; 
-          $mail->Password = 'password'; 
-          $mail->SMTPSecure = 'ssl';
-          $mail->Port = 465;
+        //   $mail->isSMTP();
+        //   $mail->Host = 'smtp.gmail.com';
+        //   $mail->SMTPAuth = true;
+        //   $mail->Username = 'email'; 
+        //   $mail->Password = 'password'; 
+        //   $mail->SMTPSecure = 'ssl';
+        //   $mail->Port = 465;
 
-          $mail->setFrom('email'); // Your gmail
+        //   $mail->setFrom('email'); // Your gmail
 
-          $mail->addAddress($to);
+        //   $mail->addAddress($to);
 
-          $mail->isHTML(true);
+        //   $mail->isHTML(true);
 
-          $mail->Subject = "ada pesanan baru";
-          $mail->Body = "---";
+        //   $mail->Subject = "ada pesanan baru";
+        //   $mail->Body = "---";
 
-          $mail->send();
+        //   $mail->send();
 
 
        $insert_query = "INSERT INTO penjualan (ID_RUMAH, TANGGAL_PENJUALAN,STATUS_PENJUALAN, ID_PENGGUNA) VALUES(:ID_RUMAH,:date,:status,:ID_PENGGUNA)";

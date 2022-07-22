@@ -18,8 +18,8 @@ if(isset($_POST['q'])){
 
     // MAKE SQL QUERY
     // IF GET POSTS ID, THEN SHOW POSTS BY ID OTHERWISE SHOW ALL POSTS
-    $query = "SELECT kelurahan.NAMA_KELURAHAN, 
-    pengguna.NAMA_PENGGUNA as penjual,pengguna.ID_PENGGUNA as penjual_id, rumah.id, rumah.judul_rumah, rumah.alamat_rumah, rumah.desc_rumah,rumah.harga_rumah,rumah.gambar, penjualan.STATUS_PENJUALAN as status,penjualan.BUKTI_TRANSFER as transfer, pengguna.REKENING_PENGGUNA as rekening_penjual
+    $query = "SELECT kelurahan.NAMA_KELURAHAN, pengguna.EMAIL_PENGGUNA as email_penjual,
+    pengguna.NAMA_PENGGUNA as penjual,pengguna.ID_PENGGUNA as penjual_id, rumah.id, rumah.judul_rumah, rumah.tgl as tgl, rumah.alamat_rumah, rumah.desc_rumah,rumah.harga_rumah,rumah.gambar, penjualan.STATUS_PENJUALAN as status,penjualan.BUKTI_TRANSFER as transfer, pengguna.REKENING_PENGGUNA as rekening_penjual
     FROM rumah
     LEFT JOIN kelurahan ON kelurahan.ID_KELURAHAN = rumah.id_kelurahan
     LEFT JOIN pengguna ON pengguna.ID_PENGGUNA = rumah.id_pengguna
@@ -51,6 +51,8 @@ if(isset($_POST['q'])){
                 'transfer' => $row['transfer'],
                 'rekening_penjual' => $row['rekening_penjual'],
                 'status' => $row['status'] == null ? "pending" : $row['status'],
+                'tgl' => $row['tgl'] == null ? "null" : $row['tgl'],
+                'email_penjual' => $row['email_penjual']
 
             ];
             // PUSH POST DATA IN OUR $posts_array ARRAY
